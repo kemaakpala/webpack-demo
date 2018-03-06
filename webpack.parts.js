@@ -1,3 +1,5 @@
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 exports.devServer = ({host, port} = {}) => ({
     devServer: {
         // Display only errors to reduce the amount of output.
@@ -14,3 +16,44 @@ exports.devServer = ({host, port} = {}) => ({
         }
     }
 });
+
+
+exports.loadCSS = ({include, exclude} = {})=>({
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                include,
+                exclude,
+                use: ["style-loader", "css-loader"]//, "less-loader", "sass-loader"]
+            }
+        ]
+    }
+});
+
+exports.extractCSS = ({include, exclude, use}) => {
+    //Output extracted CSS to a file
+    const plugin = new ExtractTextPlugin({
+        //allChunks is needed to extract from extracted chunks as well
+        allChunks: true,
+        filename: "[name].css",
+    });
+
+    return {
+        module: {
+            rules:[
+                {
+                    test: /\.css$/,
+                    include,
+                    exclude,
+
+                    use: plugin.extract({
+                        use,
+                        fallback: 'style-loader'
+                    })
+                }
+            ]
+        },
+        plugins: [plugin]
+    }
+};

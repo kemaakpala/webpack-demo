@@ -8,15 +8,19 @@ const parts = require('./webpack.parts');
 const commonConfig = merge([
     {
         plugins: [
-            // Ignore node_modules so CPU usage with poll watching drops significantly.
             new HtmlWebpackPlugin({title: "Webpack demo"})
         ]
     }
 ]);
 
-const productionConfig = merge([]);
+const productionConfig = merge([
+    parts.extractCSS({
+        use: "css-loader"
+    })
+]);
 
 const developmentConfig = merge([
+    parts.loadCSS(),
     parts.devServer({
         //Customize host/part here if needed
         host: process.env.HOST,

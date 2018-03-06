@@ -5,9 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --env development",
-    "start:old": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --mode development\"",
-    "start:wds": "webpack-dev-server --mode development",
+
     "build": "webpack --env production"
+  },
+  "__comments__":{
+    "__comments_scripts__": {
+      "__comments_start_watch_nodemon__": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --mode development\"",
+      "__comments_start_mode__": "webpack-dev-server --mode development"
+    }
   },
   "keywords": [],
   "author": "",

@@ -1,4 +1,12 @@
 body {
     background: cornsilk;
     font-size: 100%;
+    column-count: 2;
+    column-gap: 10px;
+    column-rule: 1px solid #000;
+}
+
+.pure-button {
+    display: flex;
+    object-fit: fill;
 }

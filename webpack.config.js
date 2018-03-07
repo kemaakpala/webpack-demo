@@ -29,6 +29,19 @@ const commonConfig = merge([
 
 const productionConfig = merge([
     //parts.extractCSS({use: "css-loader"}),
+    {
+        optimization: {
+            splitChunks: {
+                cacheGroups: {
+                    commons: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: "vendor",
+                        chunks: "all"
+                    }
+                }
+            }
+        }
+    },
     parts.extractCSS({
         use: [
             "css-loader", parts.autoprefix()
@@ -48,7 +61,8 @@ const productionConfig = merge([
         options: {
             name: "[path][name].[hash].[ext]"
         }
-    })
+    }),
+    parts.generateSoureMaps({type: "source-map"})
 ]);
 
 const developmentConfig = merge([

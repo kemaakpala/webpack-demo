@@ -3,6 +3,8 @@ import "purecss";
 //import "./logo.png";
 //import "./bear.jpg";
 import "./main.css";
+import "react";
+import "react-dom";
 
 //append component to body
 console.log(component);

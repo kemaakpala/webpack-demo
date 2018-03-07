@@ -132,3 +132,7 @@ exports.loadJavaScript = ({include, exclude})=>({
 exports.polyFillJavaScript = ({appPath}={})=>({
     entry: ["babel-polyfill", appPath]
 })
+
+exports.generateSoureMaps = ({ type })=>({
+    devtool: type
+})

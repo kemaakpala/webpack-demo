@@ -1,8 +1,6 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const PurifyCSSPlugin = require("purifycss-webpack");
 
-
-
 exports.devServer = ({host, port} = {}) => ({
     devServer: {
         // Display only errors to reduce the amount of output.
@@ -20,15 +18,14 @@ exports.devServer = ({host, port} = {}) => ({
     }
 });
 
-
-exports.loadCSS = ({include, exclude} = {})=>({
+exports.loadCSS = ({include, exclude} = {}) => ({
     module: {
         rules: [
             {
                 test: /\.css$/,
                 include,
                 exclude,
-                use: ["style-loader", "css-loader"]//, "less-loader", "sass-loader"]
+                use: ["style-loader", "css-loader"] //, "less-loader", "sass-loader"]
             }
         ]
     }
@@ -39,21 +36,18 @@ exports.extractCSS = ({include, exclude, use}) => {
     const plugin = new ExtractTextPlugin({
         //allChunks is needed to extract from extracted chunks as well
         allChunks: true,
-        filename: "[name].css",
+        filename: "[name].css"
     });
 
     return {
         module: {
-            rules:[
+            rules: [
                 {
                     test: /\.css$/,
                     include,
                     exclude,
 
-                    use: plugin.extract({
-                        use,
-                        fallback: 'style-loader'
-                    })
+                    use: plugin.extract({use, fallback: 'style-loader'})
                 }
             ]
         },
@@ -62,7 +56,7 @@ exports.extractCSS = ({include, exclude, use}) => {
 };
 
 exports.purifyCSS = ({paths}) => ({
-    plugins: [new PurifyCSSPlugin({ paths })]
+    plugins: [new PurifyCSSPlugin({paths})]
 });
 
 exports.autoprefix = () => ({
@@ -70,4 +64,71 @@ exports.autoprefix = () => ({
     options: {
         plugins: () => [require("autoprefixer")()]
     }
+})
+
+exports.loadImages = ({include, exclude, options} = {}) => ({
+    module: {
+        rules: [
+            {
+                test: /\.(png|jpg|svg)$/,
+                include,
+                exclude,
+                use: {
+                    loader: 'url-loader',
+                    options
+                }
+            }
+        ]
+    }
+});
+
+exports.loadImageFiles = ({include, exclude, options} = {}) => ({
+    module: {
+        rules: [
+            {
+                test: /\.(png|jpg|svg)$/,
+                include,
+                exclude,
+                use: {
+                    loader: 'file-loader',
+                    options
+                }
+            }
+        ]
+    }
+
+});
+
+exports.loadFonts = ({test = /\.woff$/, include, exclude, options}={})=>({
+    module: {
+        rules: [
+            {
+                test,
+                include,
+                exclude,
+                use: {
+                  loader: "url-loader",
+                  options
+                }
+            }
+        ]
+    }
+
+});
+
+exports.loadJavaScript = ({include, exclude})=>({
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                include,
+                exclude,
+                use: "babel-loader"
+            }
+        ]
+    }
+})
+
+exports.polyFillJavaScript = ({appPath}={})=>({
+    entry: ["babel-polyfill", appPath]
 })

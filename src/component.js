@@ -1,6 +1,25 @@
-export default (text = "Hello world") => {
-    const element = document.createElement("div")
-    element.className = "pure-button"
-    element.innerHTML = text
-    return element;
+const compObj = {
+    element: (text = "Hello world") => {
+        const element = document.createElement("button")
+        element.className = "pure-button"
+        element.innerHTML = text
+        return element;
+    },
+    bkgImg: (text = "this is a test") => {
+        const element = document.createElement("div")
+        element.className = "bear-img"
+        element.innerHTML = text
+
+        return element;
+    },
+    bkgSvgImg: (text = "this is an SVG") => {
+        const element = document.createElement("div")
+        element.className = "svg-img" 
+        element.innerHTML = text
+
+        return element
+    }
+
 }
+
+export default compObj;

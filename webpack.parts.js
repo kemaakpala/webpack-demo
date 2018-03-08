@@ -1,5 +1,8 @@
+const webpack = require("webpack");
+const GitRevisionPlugin = require("git-revision-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const PurifyCSSPlugin = require("purifycss-webpack");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 
 exports.devServer = ({host, port} = {}) => ({
     devServer: {
@@ -135,4 +138,16 @@ exports.polyFillJavaScript = ({appPath}={})=>({
 
 exports.generateSoureMaps = ({ type })=>({
     devtool: type
+})
+
+exports.clean = path => ({
+    plugins: [new CleanWebpackPlugin([path])]
+})
+
+exports.attachRevision = () => ({
+    plugins: [
+        new webpack.BannerPlugin({
+            banner: new GitRevisionPlugin().version()
+        })
+    ]
 })

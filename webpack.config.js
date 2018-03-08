@@ -9,7 +9,8 @@ const glob = require("glob");
 const parts = require('./webpack.parts');
 
 const PATHS = {
-    app: path.resolve(__dirname, "./src")
+    app: path.resolve(__dirname, "./src"),
+    build: path.join(__dirname, "dist")
 };
 
 const commonConfig = merge([
@@ -62,7 +63,9 @@ const productionConfig = merge([
             name: "[path][name].[hash].[ext]"
         }
     }),
-    parts.generateSoureMaps({type: "source-map"})
+    parts.generateSoureMaps({type: "source-map"}),
+    parts.clean(PATHS.build), // deletes old dist folder
+    parts.attachRevision()
 ]);
 
 const developmentConfig = merge([

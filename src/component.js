@@ -5,11 +5,13 @@ const compObj = {
         element.innerHTML = text
 
         element.onclick = () => {
-            console.log(require("./lazy").default())
-            require("./lazy").default()
+            require("./lazy")
                 .then(lazy => {
-                    console.log("promise suceeded: ", lazy)
-              }).catch((err) => console.error(err));
+                element.textContent = lazy.default;
+              })
+              .catch(err => {
+                console.error(err);
+              });
           };
         
         return element;

@@ -1,0 +1,18 @@
+{
+    "presets": [
+        [
+            "env",
+            {
+                "modules": false
+            }
+        ]
+    ],
+    "env": {
+        "production": {
+            "plugins": [
+                "annotate-console-log",
+                "syntax-dynamic-import"
+            ]
+        }
+    }
+}

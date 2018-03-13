@@ -65,7 +65,20 @@ const productionConfig = merge([
     }),
     parts.generateSoureMaps({type: "source-map"}),
     parts.clean(PATHS.build), // deletes old dist folder
-    parts.attachRevision()
+    parts.attachRevision(),
+    parts.minifyJavascript(),
+    parts.minifyCSS({
+        options:{
+            discardComments: {
+                removeAll: true
+            },
+            /*
+             * Run cssnano in safe mode to avoid 
+             * potentially unsafe transformations
+            */
+            safe:true
+        }
+    })
 ]);
 
 const developmentConfig = merge([

@@ -23,8 +23,11 @@ const commonConfig = merge([
             name: "./fonts/[name].[ext]"
         }
     }),
-    parts.loadJavaScript({include: PATHS.app}), {
-        plugins: [new HtmlWebpackPlugin({title: "Webpack demo"})]
+    parts.loadJavaScript({include: PATHS.app}), 
+    {
+        plugins: [new HtmlWebpackPlugin({
+            title: "Webpack demo"
+        })]
     }
 ]);
 

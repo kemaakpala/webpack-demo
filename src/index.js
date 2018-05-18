@@ -5,6 +5,7 @@ import "purecss";
 import "./main.css";
 import "react";
 import "react-dom";
+// import {bake} from "./shake"
 
 //append component to body
 console.log(component);
